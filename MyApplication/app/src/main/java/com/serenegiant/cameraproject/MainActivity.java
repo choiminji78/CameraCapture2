@@ -38,11 +38,9 @@ import java.util.Calendar;
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     Preview preview;
-    Button buttonClick;
     Camera camera;
     Activity act;
     Context ctx;
-
 
 
     // Request code for camera
@@ -66,7 +64,7 @@ public class MainActivity extends Activity {
         // it return true, your app has permissions.
         return true;
     }
-
+    
     private void requestNecessaryPermissions() {
         // make array of permissions which you want to ask from user.
         String[] permissions = new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -166,11 +164,13 @@ public class MainActivity extends Activity {
             ((FrameLayout) findViewById(R.id.layout)).addView(preview);
             preview.setKeepScreenOn(true);
 
-            preview.setOnClickListener(new OnClickListener() {
+            Button btncapture = (Button)findViewById(R.id.btnCapture);
+            btncapture.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
                     camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+                    Toast.makeText(getApplicationContext(), "사진이 저장 되었습니다.",Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -317,7 +317,7 @@ public class MainActivity extends Activity {
                 outStream.close();
 
                 Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length + " to " + outFile.getAbsolutePath());
-                Toast.makeText(getApplicationContext(), "사진이 저장 되었습니다.",Toast.LENGTH_SHORT).show();
+
                 refreshGallery(outFile);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
