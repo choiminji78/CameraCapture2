@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
@@ -37,6 +38,7 @@ import java.util.Calendar;
 
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
+    private Bitmap bmpOfTheImageFromCamera = null;
     Preview preview;
     Camera camera;
     Activity act;
@@ -64,7 +66,7 @@ public class MainActivity extends Activity {
         // it return true, your app has permissions.
         return true;
     }
-    
+
     private void requestNecessaryPermissions() {
         // make array of permissions which you want to ask from user.
         String[] permissions = new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -285,6 +287,10 @@ public class MainActivity extends Activity {
 
     PictureCallback jpegCallback = new PictureCallback() {
         public void onPictureTaken(byte[] data, Camera camera) {
+            //BitmapFactory.Options options=new BitmapFactory.Options();
+            //options.inSampleSize = 8;
+           // Bitmap orgImage = BitmapFactory.decodeFile("com.serenegiant.cameraproject");
+
             new SaveImageTask().execute(data);
             resetCam();
             Log.d(TAG, "onPictureTaken - jpeg");
