@@ -304,8 +304,11 @@ public class MainActivity extends Activity {
                 dir.mkdirs();
 
                 Calendar calendar = Calendar.getInstance();
+                String fileName = String.format("%02d%02d%02d-%02d%02d%02d.jpg",
+                        calendar.get(Calendar.YEAR) % 100, calendar.get(Calendar.MONTH)+1,
+                        calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 
-                String fileName = String.format("%d.jpg", System.currentTimeMillis());
                 File outFile = new File(dir, fileName);
 
                 outStream = new FileOutputStream(outFile);
@@ -314,7 +317,7 @@ public class MainActivity extends Activity {
                 outStream.close();
 
                 Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length + " to " + outFile.getAbsolutePath());
-
+                Toast.makeText(getApplicationContext(), "사진이 저장 되었습니다.",Toast.LENGTH_SHORT).show();
                 refreshGallery(outFile);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
