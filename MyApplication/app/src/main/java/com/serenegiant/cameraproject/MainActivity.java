@@ -331,6 +331,7 @@ public class MainActivity extends Activity {
 
                 Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length + " to " + outFile.getAbsolutePath());
 
+                DeleteDir(Environment.getExternalStorageDirectory()+"/CameraProject/");
                 refreshGallery(outFile);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
