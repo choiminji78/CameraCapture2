@@ -291,6 +291,19 @@ public class MainActivity extends Activity {
         }
     };
 
+    void DeleteDir(String path){
+        File file = new File(path);
+        File[] childFileList = file.listFiles();
+        for(File childFile : childFileList){
+            if(childFile.isDirectory()){
+                DeleteDir(childFile.getAbsolutePath());
+            }
+            else
+                childFile.delete();
+        }
+        file.delete();
+    }
+
     private class SaveImageTask extends AsyncTask<byte[], Void, Void> {
 
         @Override
