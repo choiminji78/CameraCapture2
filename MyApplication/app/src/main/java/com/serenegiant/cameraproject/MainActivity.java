@@ -26,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -41,7 +42,7 @@ public class MainActivity extends Activity {
     Camera camera;
     Activity act;
     Context ctx;
-
+    String gallery_filename;
 
     // Request code for camera
     private final int CAMERA_REQUEST_CODE = 100;
@@ -217,6 +218,14 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
+        ImageButton btn_gallery = (ImageButton)findViewById(R.id.btnImage);
+        btn_gallery.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ImageActivity.class);
+                startActivity(intent);
+            }
+        });
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             if (!hasPermissions()) {
                 // your app doesn't have permissions, ask for them.
@@ -321,7 +330,7 @@ public class MainActivity extends Activity {
                         calendar.get(Calendar.YEAR) % 100, calendar.get(Calendar.MONTH)+1,
                         calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
-
+                gallery_filename = fileName;
                 File outFile = new File(dir, fileName);
 
                 outStream = new FileOutputStream(outFile);
