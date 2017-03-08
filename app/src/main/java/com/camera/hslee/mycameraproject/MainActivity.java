@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         if (allowed) {
             // if user granted permissions then do your work.
             //startCamera();
-            doRestart(this);
+//            doRestart(this);
         }
         else {
             // else give any custom waring message.

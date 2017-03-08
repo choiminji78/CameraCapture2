@@ -1,9 +1,11 @@
 package com.camera.hslee.mycameraproject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -16,8 +18,10 @@ import java.io.IOException;
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private Camera mCamera;
-    public CameraPreview(Context context, Camera camera){
+    private Activity mActivity;
+    public CameraPreview(Context context, Camera camera, Activity activity){
         super(context);
+        mActivity = activity;
         mCamera=camera;
         mHolder = getHolder();
         mHolder.addCallback(this);
@@ -37,6 +41,17 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                 parameters.setRotation(0);
             }
             mCamera.setParameters(parameters);
+
+            int rotation = mActivity.getWindowManager().getDefaultDisplay().getRotation();
+            int degress = 0;
+            switch (rotation){
+                case Surface.ROTATION_0 : degress = 0; break;
+                case Surface.ROTATION_90: degress = 90; break;
+                case Surface.ROTATION_180: degress = 190; break;
+                case Surface.ROTATION_270: degress = 270; break;
+            }
+            int result = (90-degress + 360) % 360;
+            mCamera.setDisplayOrientation(result);
 
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
