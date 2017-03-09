@@ -1,0 +1,7 @@
+#Thu Mar 09 10:17:31 KST 2017
+base.0=C\:\\Users\\IWS\\Desktop\\Camera_view_project\\MyApplication\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_d083fdf9e257e8006ce4d24c2b9747776f2670cb
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=C\:\\Users\\IWS\\Desktop\\Camera_view_project\\MyApplication\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_08bace76b2f5a521c0eb1008d4eac97f6d1dbdfe\\classes.dex
+base.1=C\:\\Users\\IWS\\Desktop\\Camera_view_project\\MyApplication\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_08bace76b2f5a521c0eb1008d4eac97f6d1dbdfe
+file.0=C\:\\Users\\IWS\\Desktop\\Camera_view_project\\MyApplication\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_d083fdf9e257e8006ce4d24c2b9747776f2670cb\\classes.dex

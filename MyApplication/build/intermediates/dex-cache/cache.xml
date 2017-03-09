@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\IWS\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.1\constraint-layout-solver-1.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="1ad79631209e77b0a2730fc112b4cc0c66a95132">
+        <dex dex="C:\Users\IWS\Desktop\Camera_view_project\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.1_6cab3b72a6821f69066b6d335e47ab282edd96e6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\IWS\Desktop\Camera_view_project\MyApplication\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b98516ce9fedafc03b2d97f836f53af3f7740978">
+        <dex dex="C:\Users\IWS\Desktop\Camera_view_project\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_08bace76b2f5a521c0eb1008d4eac97f6d1dbdfe\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\IWS\AppData\Local\Android\sdk\.android\build-cache\7d7e397bdc5e1293ce60fb4f07c7a0b374ca05b7\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="7113302c965566b66df46c6ca75ea301576114a5">
+        <dex dex="C:\Users\IWS\Desktop\Camera_view_project\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_67f8e8a00a67950df001e6a1204d7bb06bd654ab\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\IWS\Desktop\Camera_view_project\MyApplication\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\IWS\Desktop\Camera_view_project\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_d083fdf9e257e8006ce4d24c2b9747776f2670cb\classes.dex" />
+    </item>
+
+</items>
