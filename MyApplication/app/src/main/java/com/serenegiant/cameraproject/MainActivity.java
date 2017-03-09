@@ -8,14 +8,17 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceView;
@@ -33,6 +36,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Calendar;
 
 
@@ -328,8 +332,8 @@ public class MainActivity extends Activity {
 
             // Write to SD Card
             try {
-                File sdCard = Environment.getExternalStorageDirectory();
-                File dir = new File (sdCard.getAbsolutePath() + "/CameraProject");
+                //File sdCard = Environment.getExternalStorageDirectory();
+                File dir = new File("sdcard/Android/data/"+getPackageName(),"CameraProject");
                 dir.mkdirs();
 
                 Calendar calendar = Calendar.getInstance();
@@ -345,6 +349,18 @@ public class MainActivity extends Activity {
                 outStream.flush();
                 outStream.close();
 
+                Uri imgUri = Uri.fromFile(outFile);
+                String imagePath = imgUri.getPath();
+                Bitmap img = BitmapFactory.decodeFile(imagePath);
+
+                ExifInterface exif = new ExifInterface(imagePath);
+                int exifOri = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                int exifDegree = exifOrientationToDegrees(exifOri);
+                img = rotate(img,exifDegree);
+
+                File newImg = new File(dir,fileName);
+                OutputStream ops = new FileOutputStream(newImg);
+                img.compress(Bitmap.CompressFormat.JPEG,100,ops);
                 Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length + " to " + outFile.getAbsolutePath());
 
                 //DeleteDir(Environment.getExternalStorageDirectory()+"/CameraProject/");
@@ -359,7 +375,34 @@ public class MainActivity extends Activity {
         }
 
     }
+    public Bitmap rotate(Bitmap bitmap, int degrees) {
+        if(degrees != 0 && bitmap != null) {
+            Matrix m = new Matrix();
+            m.setRotate(degrees, (float) bitmap.getWidth() / 2,
+                    (float) bitmap.getHeight() / 2);
 
+            try {
+                Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0,
+                        bitmap.getWidth(), bitmap.getHeight(), m, true);
+                if(bitmap != converted) {
+                    bitmap.recycle();
+                    bitmap = converted;
+                }
+            }
+            catch(OutOfMemoryError ex){
+            }
+        }
+        return bitmap;
+    }
+    public int exifOrientationToDegrees(int exifOrientation) {
+        if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90)
+            return 90;
+        else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_180)
+            return 180;
+        else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_270)
+            return 270;
+        return 0;
+    }
     /**
      *
      * @param activity
