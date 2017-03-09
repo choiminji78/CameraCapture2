@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -31,7 +33,11 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_camera);
+
+
 
         findViewById(R.id.captureBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +52,9 @@ public class CameraActivity extends AppCompatActivity {
         super.onResume();
         startCamera();
     }
-
+    // 오토포커스 프레임레이아웃에 클릭 달고 클릭 하면 촬영버튼 비활성화
+    //
+    // 포커스 성공하면 촬영버튼 활성화 실패하면 그대로
     private void startCamera(){
             mCamera = getCameraInstance();
             mPreview = new CameraPreview(getApplicationContext(), mCamera,this);
@@ -94,7 +102,8 @@ public class CameraActivity extends AppCompatActivity {
 //                File dir = new File( Environment.getExternalStorageDirectory().getAbsolutePath() , "MyCameraApp");
 //                File dir = new File( getApplicationContext().getFilesDir() , "MyCameraApp");
 //                File dir = new File(getApplicationContext().getExternalCacheDir(),"MyCamerApp");
-                File dir = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),"MyCamerApp");
+//                File dir = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),"MyCamerApp");
+                File dir = new File("sdcard/Android/data/"+getPackageName(),"MyCameraApp");
                 dir.mkdirs();
                 String fileName = String.format("%d.jpg", System.currentTimeMillis());
                 File outFile = new File(dir, fileName);

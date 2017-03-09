@@ -39,7 +39,8 @@ public class AlbumActivity extends AppCompatActivity {
         public gridAdapter() {
 //            dir = new File(getApplicationContext().getFilesDir(), "MyCameraApp");
 //            dir = new File(getApplicationContext().getExternalCacheDir(),"MyCamerApp");
-            File dir = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),"MyCamerApp");
+//            File dir = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),"MyCamerApp");
+            dir = new File("sdcard/Android/data/"+getPackageName(),"MyCameraApp");
             childFiles = dir.listFiles();
             inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
