@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
     Activity act;
     Context ctx;
     String gallery_filename;
+    Intent intent;
 
     // Request code for camera
     private final int CAMERA_REQUEST_CODE = 100;
@@ -222,8 +223,14 @@ public class MainActivity extends Activity {
         btn_gallery.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ImageActivity.class);
+
+
+                Uri uri = Uri.parse("content://media/external/images/media");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
                 startActivity(intent);
+
             }
         });
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
