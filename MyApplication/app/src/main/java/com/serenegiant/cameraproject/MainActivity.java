@@ -177,6 +177,15 @@ public class MainActivity extends Activity {
                 public void onClick(View arg0) {
                     camera.takePicture(shutterCallback, rawCallback, jpegCallback);
                     Toast.makeText(getApplicationContext(), "사진이 저장 되었습니다.",Toast.LENGTH_SHORT).show();
+
+
+                    File[] listFiles = (new File("sdcard/Android/data/"+getPackageName()+"/CameraProject/").listFiles());
+                    ImageButton btn_gallery = (ImageButton)findViewById(R.id.btnImage);
+                    final int resourceId = getResources().getIdentifier(gallery_filename , "drawable", getPackageName());
+
+                    //File file = new File("sdcard/Android/data/"+getPackageName()+"/CameraProject/"+fName);
+                    //btn_gallery.setImageResource();
+
                 }
             });
         }
@@ -223,18 +232,16 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        ImageButton btn_gallery = (ImageButton)findViewById(R.id.btnImage);
+        final ImageButton btn_gallery = (ImageButton)findViewById(R.id.btnImage);
         btn_gallery.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                /* 갤러리로 이동
                 Uri uri = Uri.parse("content://media/external/images/media");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivity(intent);
-
+                startActivity(intent);*/
             }
         });
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
@@ -337,7 +344,7 @@ public class MainActivity extends Activity {
                 dir.mkdirs();
 
                 Calendar calendar = Calendar.getInstance();
-                String fileName = String.format("%02d%02d%02d-%02d%02d%02d.jpg",
+                String fileName = String.format("camera%02d%02d%02dn%02d%02d%02d.jpg",
                         calendar.get(Calendar.YEAR) % 100, calendar.get(Calendar.MONTH)+1,
                         calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
@@ -363,7 +370,6 @@ public class MainActivity extends Activity {
                 img.compress(Bitmap.CompressFormat.JPEG,100,ops);
                 Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length + " to " + outFile.getAbsolutePath());
 
-                //DeleteDir(Environment.getExternalStorageDirectory()+"/CameraProject/");
                 refreshGallery(outFile);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

@@ -187,7 +187,9 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
             }
             //set max Preview Size
             parameters.setPreviewSize(size.width, size.height);
-
+            Camera.Parameters params = mCamera.getParameters();
+            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            mCamera.setParameters(params);
             // Important: Call startPreview() to start updating the preview surface.
             // Preview must be started before you can take a picture.
             mCamera.startPreview();
