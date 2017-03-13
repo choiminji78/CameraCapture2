@@ -70,7 +70,6 @@ public class MainActivity extends Activity {
         // it return true, your app has permissions.
         return true;
     }
-    
     private void requestNecessaryPermissions() {
         // make array of permissions which you want to ask from user.
         String[] permissions = new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -172,22 +171,25 @@ public class MainActivity extends Activity {
 
             Button btncapture = (Button)findViewById(R.id.btnCapture);
             btncapture.setOnClickListener(new OnClickListener() {
-
                 @Override
                 public void onClick(View arg0) {
                     camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-                    Toast.makeText(getApplicationContext(), "사진이 저장 되었습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "사진이 저장 되었습니다.", Toast.LENGTH_SHORT).show();
 
-
-                    File[] listFiles = (new File("sdcard/Android/data/"+getPackageName()+"/CameraProject/").listFiles());
-                    ImageButton btn_gallery = (ImageButton)findViewById(R.id.btnImage);
-                    final int resourceId = getResources().getIdentifier(gallery_filename , "drawable", getPackageName());
-
-                    //File file = new File("sdcard/Android/data/"+getPackageName()+"/CameraProject/"+fName);
-                    //btn_gallery.setImageResource();
-
+                    String imgpath;
+                    if (gallery_filename != null) {
+                        imgpath = "sdcard/Android/data/" + getPackageName() + "/CameraProject/" + gallery_filename;
+                    } else {
+                        imgpath = "sdcard/Android/data/" + getPackageName() + "/CameraProject/camera170313n111213.jpg";
+                    }
+                    ImageButton btn_gallery = (ImageButton) findViewById(R.id.btnImage);
+                    Bitmap bm = BitmapFactory.decodeFile(imgpath);
+                    Bitmap resizebm = resizeBitmap(bm, 50, 50);
+                    btn_gallery.setImageBitmap(resizebm);
                 }
             });
+
+
         }
 
         preview.setCamera(null);
@@ -231,8 +233,8 @@ public class MainActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
-
         final ImageButton btn_gallery = (ImageButton)findViewById(R.id.btnImage);
+        btn_gallery.setImageResource(R.drawable.gallery);
         btn_gallery.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -331,12 +333,28 @@ public class MainActivity extends Activity {
         file.delete();
     }
 
+    public Bitmap resizeBitmap(Bitmap bitmap, int width, int height) {
+        if (bitmap.getWidth() != width || bitmap.getHeight() != height){
+            float ratio = 1.0f;
+
+            if (width > height) {
+                ratio = (float)width / (float)bitmap.getWidth();
+            } else {
+                ratio = (float)height / (float)bitmap.getHeight();
+            }
+            bitmap = Bitmap.createScaledBitmap(bitmap,
+                    (int)(((float)bitmap.getWidth()) * ratio), // Width
+                    (int)(((float)bitmap.getHeight()) * ratio), // Height
+                    false);
+        }
+        return bitmap;
+    }
+
     private class SaveImageTask extends AsyncTask<byte[], Void, Void> {
 
         @Override
         protected Void doInBackground(byte[]... data) {
             FileOutputStream outStream = null;
-
             // Write to SD Card
             try {
                 //File sdCard = Environment.getExternalStorageDirectory();
