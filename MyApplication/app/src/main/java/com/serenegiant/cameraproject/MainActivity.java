@@ -238,12 +238,19 @@ public class MainActivity extends Activity {
         btn_gallery.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* 갤러리로 이동
-                Uri uri = Uri.parse("content://media/external/images/media");
+                /*
+                Uri uri = Uri.parse("content://media/external/images/media/");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivity(intent);*/
+                intent = new Intent(MainActivity.this, GalleryActivity.class);
+                if(gallery_filename != null){
+                    intent.putExtra("filename",gallery_filename);
+                } else {
+                    intent.putExtra("filename",gallery_filename);
+                }
+                startActivity(intent);
             }
         });
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
