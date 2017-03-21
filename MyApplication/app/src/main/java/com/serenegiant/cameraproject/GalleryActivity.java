@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -24,7 +25,11 @@ public class GalleryActivity extends Activity {
             imgView.setImageBitmap(bm);
         }
         else {  //찍은 이미지가 없을 때 갤러리로 넘기기
-
+            Uri uri = Uri.parse("content://media/external/images/media/");
+            Intent intent2 = new Intent(Intent.ACTION_VIEW, uri);
+            intent2.setAction(Intent.ACTION_GET_CONTENT);
+            intent2.setType("image/*");
+            startActivity(intent2);
         }
 
     }
